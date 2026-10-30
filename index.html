@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRINCEPKart - Shop Everything</title>
+<style>
+:root{--maroon:#8B0000;--gold:#FFC107;--purple:#6A1B9A;--green:#1B8A5A;--bg:#f6f3f1;--ink:#222}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:70px}
+.wrap{max-width:1100px;margin:0 auto}
+header{background:linear-gradient(180deg,#8B0000,#6d0000);color:#fff;padding:12px 14px 14px;position:sticky;top:0;z-index:20}
+.top{display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;font-size:20px;cursor:pointer;letter-spacing:.3px}
+.logo span{color:var(--gold)}
+.icons{display:flex;gap:16px;font-size:22px}
+.icons div{position:relative;cursor:pointer}
+.badge{position:absolute;top:-6px;right:-10px;background:var(--gold);color:#000;font-size:11px;font-weight:700;border-radius:10px;padding:1px 6px}
+.search{margin-top:10px;background:#fff;border-radius:12px;display:flex;align-items:center;padding:0 12px}
+.search input{flex:1;border:0;outline:0;padding:12px 8px;font-size:15px;background:transparent}
+.hero{background:radial-gradient(circle at 20% 20%,#b30000,#6d0000);color:#fff;text-align:center;padding:22px 14px}
+.hero h1{font-size:26px;color:var(--gold);letter-spacing:1px}
+.hero .big{font-size:40px;font-weight:900;margin:4px 0}
+.pill{display:inline-block;border:2px solid var(--gold);color:var(--gold);border-radius:20px;padding:4px 16px;font-weight:700;font-size:13px}
+.cats{display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,auto);grid-auto-columns:92px;gap:14px 10px;overflow-x:auto;padding:14px;background:#fff;scroll-snap-type:x mandatory}
+.cat{text-align:center;cursor:pointer;scroll-snap-align:start}
+.cat .c{width:72px;height:72px;margin:0 auto 4px;border-radius:36px 36px 14px 14px;background:linear-gradient(160deg,#ffd54f,#ff8f00);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:32px;box-shadow:0 2px 6px #0002}
+.cat .c small{font-size:9px;font-weight:700;color:#fff;background:var(--maroon);border-radius:6px;padding:1px 5px;margin-top:2px}
+.cat p{font-size:12px;font-weight:600}
+.timer{background:linear-gradient(90deg,#ffe082,#ffca28);display:flex;align-items:center;gap:8px;padding:10px 14px;font-weight:700;flex-wrap:wrap}
+.timer b{background:var(--maroon);color:#fff;border-radius:6px;padding:4px 8px;font-size:18px}
+.sec{padding:14px}
+.sec-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.sec-h h2{font-size:20px;color:var(--green);font-style:italic;font-weight:900}
+.btn-o{border:2px solid var(--purple);color:var(--purple);background:#fff;border-radius:20px;padding:6px 14px;font-weight:700;cursor:pointer}
+.row{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.row .card{min-width:165px;max-width:165px;scroll-snap-align:start}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:950px){.grid{grid-template-columns:repeat(4,1fr)}}
+.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px #0002;position:relative;display:flex;flex-direction:column}
+.img{height:130px;display:flex;align-items:center;justify-content:center;font-size:62px}
+.ribbon{position:absolute;top:8px;left:-24px;background:#d50000;color:#fff;font-size:10px;font-weight:800;padding:2px 28px;transform:rotate(-45deg)}
+.heart{position:absolute;top:6px;right:8px;font-size:20px;cursor:pointer;background:#fff;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px #0003}
+.info{padding:8px 10px 10px;display:flex;flex-direction:column;gap:4px;flex:1}
+.name{font-size:13px;font-weight:600;line-height:1.25;min-height:32px}
+.price{font-size:17px;font-weight:800}
+.price s{font-size:12px;color:#888;font-weight:400;margin-left:4px}
+.off{color:var(--green);font-size:12px;font-weight:700}
+.rate{background:var(--green);color:#fff;font-size:12px;font-weight:700;border-radius:12px;padding:2px 9px;align-self:flex-start}
+.add{margin-top:auto;background:var(--maroon);color:#fff;border:0;border-radius:8px;padding:9px;font-weight:700;cursor:pointer;font-size:13px}
+.offer{background:linear-gradient(160deg,#4a148c,#7b1fa2);color:#fff;border-radius:14px;padding:16px;text-align:center}
+.offer h2{color:var(--gold);letter-spacing:3px;margin-bottom:12px}
+.offer .o3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.offer .o3 div{background:#ffd54f;color:var(--maroon);border-radius:12px;padding:14px 4px;font-weight:800;cursor:pointer;font-size:13px}
+.offer .o3 div span{display:block;font-size:30px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;padding:10px 14px;background:#fff;position:sticky;top:104px;z-index:10;box-shadow:0 2px 4px #0001;align-items:center}
+.bar select,.bar label{font-size:13px}
+.bar select{padding:7px;border-radius:8px;border:1px solid #ccc;background:#fff}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;background:#fff}
+.chip{white-space:nowrap;border:1px solid #bbb;border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;background:#fff}
+.chip.on{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+.empty{text-align:center;padding:50px 20px;color:#666}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;box-shadow:0 -2px 8px #0002;z-index:30;padding:6px 0}
+nav div{text-align:center;font-size:11px;cursor:pointer;color:#666;padding:2px 10px;position:relative}
+nav div i{display:block;font-size:22px;font-style:normal}
+nav div.on{color:var(--purple);font-weight:700}
+.drawer{position:fixed;inset:0;background:#0006;z-index:50;display:none}
+.drawer.open{display:block}
+.panel{position:absolute;right:0;top:0;bottom:0;width:min(420px,100%);background:#fff;display:flex;flex-direction:column}
+.panel h3{padding:14px;background:var(--maroon);color:#fff;display:flex;justify-content:space-between}
+.items{flex:1;overflow:auto;padding:10px}
+.ci{display:flex;gap:10px;align-items:center;border-bottom:1px solid #eee;padding:10px 0}
+.ci .e{font-size:34px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:10px}
+.ci .n{flex:1;font-size:13px;font-weight:600}
+.qty{display:flex;align-items:center;gap:8px;margin-top:4px}
+.qty button{width:26px;height:26px;border-radius:50%;border:1px solid #999;background:#fff;font-size:16px;cursor:pointer}
+.foot{padding:12px;border-top:1px solid #eee}
+.foot input{width:100%;padding:10px;margin-bottom:8px;border:1px solid #ccc;border-radius:8px;font-size:14px}
+.wa{width:100%;background:#25d366;color:#fff;border:0;padding:13px;border-radius:10px;font-weight:800;font-size:15px;cursor:pointer}
+.toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:9px 18px;border-radius:20px;font-size:13px;z-index:60;display:none}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<div class="drawer" id="drawer" onclick="if(event.target===this)toggleCart(false)">
+  <div class="panel">
+    <h3><span>Your Cart</span><span style="cursor:pointer" onclick="toggleCart(false)">✕</span></h3>
+    <div class="items" id="cartItems"></div>
+    <div class="foot" id="cartFoot"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ SETTINGS: yahan apni details badlein ============ */
+const CONFIG = {
+  STORE_NAME: "PRINCEPKart",
+  WHATSAPP_NUMBER: "918651829611",   // apna number daalein: 91 + 10 digit (bina + ke)
+  OWNER_EMAIL: "princepkart@gmail.com", // (sirf yaad ke liye) email Web3Forms key wale email par jaati hai
+  WEB3FORMS_KEY: "a449588a-e681-472b-971f-51726ff08e73", // Web3Forms access key
+  SALE_NAME: "MEGA FESTIVE SALE",
+  SALE_END: "2026-11-15T23:59:59",   // sale khatam hone ki date
+  FREE_DELIVERY_ABOVE: 499
+};
+
+/* ============ CATEGORIES ============ */
+const CATEGORIES = [
+  {id:"fashion",name:"Fashion",icon:"👗",tag:"From ₹99"},
+  {id:"beauty",name:"Beauty",icon:"💄",tag:"From ₹49"},
+  {id:"personal",name:"Personal Care",icon:"🧴",tag:"Up to 70% OFF"},
+  {id:"kitchen",name:"Kitchen",icon:"🍳",tag:"Up to 80% OFF"},
+  {id:"utensils",name:"Utensils",icon:"🥘",tag:"Up to 60% OFF"},
+  {id:"food",name:"Food Items",icon:"🍪",tag:"From ₹29"},
+  {id:"electronics",name:"Electronics",icon:"🎧",tag:"Up to 75% OFF"},
+  {id:"daily",name:"Daily Use",icon:"🧹",tag:"From ₹49"}
+];
+
+/* ============ PRODUCTS: [naam, emoji, sale price] ============
+   Naye product add karne ke liye bas ek line add karein.        */
+const RAW = {
+  fashion:[["Cotton Kurti","👗",349],["Silk Saree","🥻",799],["Men's T-Shirt","👕",199],["Slim Fit Jeans","👖",599],["Kids Party Frock","👧",299],["Sports Shoes","👟",699],["Ladies Handbag","👜",449],["Analog Watch","⌚",499]],
+  beauty:[["Matte Lipstick","💄",149],["Face Serum","🧪",249],["Perfume 30ml","🌸",199],["Kajal Pencil","🖊️",49],["Hair Oil 200ml","💆",129],["Compact Powder","🎨",99],["Nail Polish Set","💅",119],["Face Wash","🧼",89]],
+  personal:[["Baby Wipes 72pc","👶",99],["Toothpaste Pack","🪥",79],["Body Lotion","🧴",179],["Shaving Kit","🪒",229],["Hand Wash 500ml","🧼",89],["Shampoo 340ml","🚿",199],["Sanitary Pads","🩹",109],["Soap Pack of 4","🧽",119]],
+  kitchen:[["Non-stick Pan","🍳",399],["Mixer Grinder","🌀",1499],["Electric Kettle","☕",699],["Storage Containers","🥫",349],["Dinner Set 24pc","🍽️",1299],["Chopping Board","🔪",149],["Water Bottle Set","🍶",199],["Kitchen Knife Set","🔪",249]],
+  utensils:[["Steel Tiffin","🍱",299],["Pressure Cooker 3L","♨️",999],["Copper Bottle","🏺",449],["Steel Glass Set","🥛",249],["Serving Bowl Set","🥣",349],["Brass Pooja Thali","🪔",599],["Steel Kadhai","🍲",399],["Lunch Box","🥡",199]],
+  food:[["Basmati Rice 5kg","🍚",449],["Masala Combo","🌶️",149],["Dry Fruits 500g","🥜",499],["Tea 500g","🍵",199],["Namkeen Pack","🍿",59],["Premium Chocolates","🍫",149],["Mustard Oil 1L","🫙",169],["Festive Sweets Box","🍬",299]],
+  electronics:[["Bluetooth Earphones","🎧",499],["Fast Charger","🔌",299],["Power Bank 10000mAh","🔋",799],["USB Cable","🔗",99],["Bluetooth Speaker","🔊",699],["LED Bulb Pack","💡",249],["Hair Trimmer","💈",599],["Smart Watch","⌚",1299]],
+  daily:[["Floor Cleaner 1L","🧹",129],["Detergent 2kg","🧺",249],["Bedsheet Double","🛏️",399],["Bath Towel Set","🛁",349],["Notebook Pack","📒",149],["Pooja Samagri Kit","🪔",199],["Storage Organizer","🗄️",279],["Wall Decor Frame","🖼️",199]]
+};
+const COLORS=["#fde7e7","#e8f5e9","#e3f2fd","#fff8e1","#f3e5f5","#e0f7fa","#fbe9e7","#f1f8e9"];
+const PRODUCTS=[];
+let pid=1;
+CATEGORIES.forEach((c,ci)=>RAW[c.id].forEach((p,i)=>{
+  const disc=30+((pid*13)%51);               // 30% to 80%
+  const mrp=Math.round(p[2]/(1-disc/100)/10)*10;
+  PRODUCTS.push({id:pid,name:p[0],emoji:p[1],price:p[2],mrp:Math.max(mrp,p[2]+10),
+    disc:Math.round((1-p[2]/Math.max(mrp,p[2]+10))*100),
+    rating:(3.6+((pid*7)%15)/10).toFixed(1),category:c.id,bg:COLORS[(ci+i)%COLORS.length],best:i<3});
+  pid++;
+}));
+
+/* ============ STATE ============ */
+const S={view:"home",cat:"all",q:"",sort:"pop",maxPrice:"",minRate:"",minDisc:""};
+let cart=JSON.parse(localStorage.getItem("pk_cart")||"{}");
+let wish=JSON.parse(localStorage.getItem("pk_wish")||"[]");
+const save=()=>{localStorage.setItem("pk_cart",JSON.stringify(cart));localStorage.setItem("pk_wish",JSON.stringify(wish))};
+const $=id=>document.getElementById(id);
+const cartCount=()=>Object.values(cart).reduce((a,b)=>a+b,0);
+const toast=m=>{const t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(t._t);t._t=setTimeout(()=>t.style.display="none",1400)};
+
+/* ============ COMPONENTS ============ */
+function card(p){
+  return `<div class="card">
+    <div class="ribbon">SALE</div>
+    <div class="heart" onclick="toggleWish(${p.id})">${wish.includes(p.id)?"❤️":"🤍"}</div>
+    <div class="img" style="background:${p.bg}">${p.emoji}</div>
+    <div class="info">
+      <div class="name">${p.name}</div>
+      <div class="price">₹${p.price}<s>₹${p.mrp}</s></div>
+      <div class="off">${p.disc}% OFF</div>
+      <div class="rate">${p.rating} ★</div>
+      <button class="add" onclick="addCart(${p.id})">Add to Cart</button>
+    </div></div>`;
+}
+function header(){
+  return `<header><div class="wrap">
+    <div class="top"><div class="logo" onclick="go('home')">👑 PRINCEP<span>Kart</span></div>
+    <div class="icons"><div onclick="go('wishlist')">🤍${wish.length?`<span class="badge">${wish.length}</span>`:""}</div>
+    <div onclick="toggleCart(true)">🛒${cartCount()?`<span class="badge">${cartCount()}</span>`:""}</div></div></div>
+    <div class="search">🔍<input id="q" placeholder="Search by keyword or Product ID" value="${S.q}" onkeydown="if(event.key==='Enter')doSearch(this.value)"><span onclick="doSearch($('q').value)" style="cursor:pointer">➡️</span></div>
+  </div></header>`;
+}
+function bottomNav(){
+  const t=(v,i,l)=>`<div class="${S.view===v?"on":""}" onclick="go('${v}')"><i>${i}</i>${l}</div>`;
+  return `<nav>${t("home","🏠","Home")}${t("products","🗂️","All Products")}${t("wishlist","❤️","Wishlist")}<div onclick="toggleCart(true)"><i>🛒</i>Cart${cartCount()?` (${cartCount()})`:""}</div></nav>`;
+}
+
+/* ============ PAGES ============ */
+function home(){
+  const best=PRODUCTS.filter(p=>p.best);
+  const sections=CATEGORIES.slice(0,6).map(c=>`
+    <div class="sec"><div class="sec-h"><h2 style="color:var(--maroon)">${c.icon} ${c.name}</h2>
+    <button class="btn-o" onclick="openCat('${c.id}')">VIEW ALL ›</button></div>
+    <div class="row">${PRODUCTS.filter(p=>p.category===c.id).slice(0,6).map(card).join("")}</div></div>`).join("");
+  return `
+  <div class="hero"><h1>${CONFIG.SALE_NAME}</h1><div class="big">UP TO 80% OFF</div><span class="pill">⚡ Sale is Live</span></div>
+  <div class="cats">${CATEGORIES.map(c=>`<div class="cat" onclick="openCat('${c.id}')"><div class="c">${c.icon}<small>${c.tag}</small></div><p>${c.name}</p></div>`).join("")}</div>
+  <div class="timer">Sale Ends in <b id="d">00</b>d <b id="h">00</b>h <b id="m">00</b>m <b id="s">00</b>s</div>
+  <div class="sec"><div class="sec-h"><h2>BEST PRICE</h2><button class="btn-o" onclick="openCat('all')">VIEW ALL ›</button></div>
+  <div class="row">${best.map(card).join("")}</div></div>
+  <div class="sec"><div class="offer"><h2>OFFER ZONE</h2><div class="o3">
+    <div onclick="openCat('kitchen')"><span>🍳</span>Up to 80% OFF</div>
+    <div onclick="openCat('fashion')"><span>👗</span>From ₹99</div>
+    <div onclick="openCat('beauty')"><span>💄</span>From ₹49</div></div></div></div>
+  ${sections}`;
+}
+function filtered(){
+  let l=PRODUCTS.filter(p=>(S.cat==="all"||p.category===S.cat));
+  if(S.q){const q=S.q.toLowerCase();l=l.filter(p=>p.name.toLowerCase().includes(q)||String(p.id)===q||p.category.includes(q))}
+  if(S.maxPrice)l=l.filter(p=>p.price<=+S.maxPrice);
+  if(S.minRate)l=l.filter(p=>+p.rating>=+S.minRate);
+  if(S.minDisc)l=l.filter(p=>p.disc>=+S.minDisc);
+  const sorts={pop:(a,b)=>a.id-b.id,pl:(a,b)=>a.price-b.price,ph:(a,b)=>b.price-a.price,rt:(a,b)=>b.rating-a.rating,ds:(a,b)=>b.disc-a.disc};
+  return l.sort(sorts[S.sort]);
+}
+function products(){
+  const l=filtered();
+  const sel=(k,opts)=>`<select onchange="setF('${k}',this.value)">${opts.map(o=>`<option value="${o[0]}" ${S[k]==o[0]?"selected":""}>${o[1]}</option>`).join("")}</select>`;
+  return `
+  <div class="chips"><div class="chip ${S.cat==="all"?"on":""}" onclick="setF('cat','all')">All</div>
+  ${CATEGORIES.map(c=>`<div class="chip ${S.cat===c.id?"on":""}" onclick="setF('cat','${c.id}')">${c.icon} ${c.name}</div>`).join("")}</div>
+  <div class="bar"><b>${l.length} items</b>
+    ${sel("sort",[["pop","Popularity"],["pl","Price: Low to High"],["ph","Price: High to Low"],["rt","Rating"],["ds","Discount"]])}
+    ${sel("maxPrice",[["","Any price"],["99","Under ₹99"],["199","Under ₹199"],["499","Under ₹499"],["999","Under ₹999"]])}
+    ${sel("minRate",[["","Any rating"],["4","4★ & above"],["3","3★ & above"]])}
+    ${sel("minDisc",[["","Any discount"],["30","30%+"],["50","50%+"],["70","70%+"]])}
+  </div>
+  <div class="sec">${l.length?`<div class="grid">${l.map(card).join("")}</div>`:
+  `<div class="empty"><div style="font-size:50px">🔎</div><p>No products found</p><br><button class="btn-o" onclick="clearF()">Clear filters</button></div>`}</div>`;
+}
+function wishlist(){
+  const l=PRODUCTS.filter(p=>wish.includes(p.id));
+  return `<div class="sec"><div class="sec-h"><h2 style="color:var(--maroon)">❤️ My Wishlist</h2></div>
+  ${l.length?`<div class="grid">${l.map(card).join("")}</div>`:`<div class="empty"><div style="font-size:50px">🤍</div><p>Wishlist is empty</p></div>`}</div>`;
+}
+
+/* ============ RENDER ============ */
+function render(){
+  const pages={home,products,wishlist};
+  $("app").innerHTML=header()+`<div class="wrap">${pages[S.view]()}</div>`+bottomNav();
+  renderCart();tick();
+}
+function go(v){S.view=v;if(v==="products"){S.cat="all"}S.q="";location.hash=v;render();scrollTo(0,0)}
+function openCat(c){S.view="products";S.cat=c;S.q="";render();scrollTo(0,0)}
+function doSearch(v){S.q=v.trim();S.view="products";S.cat="all";render();scrollTo(0,0)}
+function setF(k,v){S[k]=v;render()}
+function clearF(){S.cat="all";S.q="";S.maxPrice=S.minRate=S.minDisc="";render()}
+function toggleWish(id){const i=wish.indexOf(id);i>-1?wish.splice(i,1):wish.push(id);save();render()}
+
+/* ============ CART ============ */
+function addCart(id){cart[id]=(cart[id]||0)+1;save();render();toast("Added to cart ✔")}
+function chg(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];save();render()}
+function toggleCart(o){$("drawer").classList.toggle("open",o)}
+function renderCart(){
+  const ids=Object.keys(cart);
+  let total=0;
+  $("cartItems").innerHTML=ids.length?ids.map(id=>{const p=PRODUCTS.find(x=>x.id==id);total+=p.price*cart[id];
+    return `<div class="ci"><div class="e" style="background:${p.bg}">${p.emoji}</div><div class="n">${p.name}<div class="price" style="font-size:14px">₹${p.price}</div>
+    <div class="qty"><button onclick="chg(${p.id},-1)">−</button><b>${cart[id]}</b><button onclick="chg(${p.id},1)">+</button></div></div>
+    <div style="font-weight:800">₹${p.price*cart[id]}</div></div>`}).join(""):`<div class="empty">🛒<p>Your cart is empty</p></div>`;
+  const left=CONFIG.FREE_DELIVERY_ABOVE-total;
+  $("cartFoot").innerHTML=ids.length?`
+    <div style="font-size:13px;margin-bottom:8px">${left>0?`Add ₹${left} more for <b>FREE delivery</b>`:`🎉 You get <b>FREE delivery</b>`}</div>
+    <div style="display:flex;justify-content:space-between;font-weight:800;font-size:18px;margin-bottom:8px"><span>Total</span><span>₹${total}</span></div>
+    <input id="cn" placeholder="Your name"><input id="cp" placeholder="Phone number" inputmode="tel"><input id="ca" placeholder="Full delivery address with pincode">
+    <button class="wa" onclick="order(${total})">Order on WhatsApp 💬</button>`:"";
+}
+function order(total){
+  const n=$("cn").value.trim(),p=$("cp").value.trim(),a=$("ca").value.trim();
+  if(!n||!p||!a){toast("Please fill name, phone and address");return}
+  const lines=Object.keys(cart).map(id=>{const x=PRODUCTS.find(y=>y.id==id);return `• ${x.name} (ID ${x.id}) x${cart[id]} = ₹${x.price*cart[id]}`}).join("\n");
+  const oid="PK"+Date.now().toString().slice(-7);
+  const msg=`New Order ${oid} - ${CONFIG.STORE_NAME}\n\n${lines}\n\nTotal: ₹${total}\n\nName: ${n}\nPhone: ${p}\nAddress: ${a}`;
+  // 1) WhatsApp (mobile par) - pehle kholte hain taaki browser block na kare
+  window.open(`https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank");
+  // 2) Email (free service FormSubmit se, apne aap)
+  fetch("https://api.web3forms.com/submit",{
+    method:"POST",
+    headers:{"Content-Type":"application/json","Accept":"application/json"},
+    body:JSON.stringify({access_key:CONFIG.WEB3FORMS_KEY,subject:`New Order ${oid} - ₹${total}`,from_name:CONFIG.STORE_NAME,
+      order_id:oid,name:n,phone:p,address:a,items:lines,total:"₹"+total})
+  }).then(r=>r.json()).then(d=>toast(d.success?"Order sent ✔ (WhatsApp + Email)":"WhatsApp sent. Email failed")).catch(()=>toast("WhatsApp sent. Email failed, check internet"));
+  cart={};save();toggleCart(false);render();
+}
+
+/* ============ COUNTDOWN ============ */
+function tick(){
+  if(!$("d"))return;
+  let diff=Math.max(0,new Date(CONFIG.SALE_END)-new Date());
+  const v={d:Math.floor(diff/864e5),h:Math.floor(diff%864e5/36e5),m:Math.floor(diff%36e5/6e4),s:Math.floor(diff%6e4/1e3)};
+  for(const k in v)$(k).textContent=String(v[k]).padStart(2,"0");
+}
+setInterval(tick,1000);
+render();
+</script>
+</body>
+</html>
